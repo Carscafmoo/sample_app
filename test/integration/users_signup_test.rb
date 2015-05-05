@@ -11,7 +11,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                password_confirmation: "bar" }
     end
     assert_template 'users/new'
-    ## test errors, yo!
+    assert_select 'div.alert.alert-danger', {text: "The form contains 4 errors."}
+    assert_select '#error_explanation ul li', {count: 4}
   end
 
   test "valid signup information" do
@@ -23,6 +24,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                password_confirmation: "guest" }
     end
     assert_template 'users/show'
-    ## test flash, yo!
+    assert_select ".alert.alert-success", {count: 1}
+    assert is_logged_in?
   end
 end
