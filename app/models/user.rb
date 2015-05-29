@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
                       format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i},
                       uniqueness: {case_sensitive: false}}
   validates :password, length: {minimum: 5}, allow_blank: true # BECAUSE WE'RE CRAZY
+  has_many :microposts, dependent: :destroy
 
   has_secure_password
 
@@ -66,6 +67,10 @@ class User < ActiveRecord::Base
 
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+
+  def feed
+    Micropost.where("user_id = ?", id)
   end
 
   private
