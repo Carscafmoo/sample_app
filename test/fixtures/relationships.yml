@@ -1,0 +1,15 @@
+one:
+  follower: guest
+  followed: lana
+
+two:
+  follower: guest
+  followed: mallory
+
+three:
+  follower: lana
+  followed: guest
+
+four:
+  follower: archer
+  followed: guest
